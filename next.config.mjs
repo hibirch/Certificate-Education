@@ -1,4 +1,5 @@
-import { env } from "./src/env/server.mjs";
+// eslint-disable-next-line
+import {env} from './src/env/server.mjs'
 
 /**
  * Don't be scared of the generics here.
@@ -9,15 +10,21 @@ import { env } from "./src/env/server.mjs";
  * @constraint {{import('next').NextConfig}}
  */
 function defineNextConfig(config) {
-  return config;
+	return config
 }
 
 export default defineNextConfig({
-  reactStrictMode: true,
-  swcMinify: true,
-  // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
-});
+	reactStrictMode: true,
+	swcMinify: true,
+	// Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
+	i18n: {
+		locales: ['en'],
+		defaultLocale: 'en',
+	},
+	async rewrites() {
+		return [{source: '/weid/:path*', destination: `http://43.142.10.123:6001/weid/:path*`}]
+	},
+	images: {
+		domains: ['avatars.githubusercontent.com'],
+	},
+})
